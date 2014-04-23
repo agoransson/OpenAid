@@ -13,18 +13,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import processing.core.PApplet;
 
 /**
- * Requesthanterare för Openaid webservice API'et.
+ * Requesthanterare for Openaid webservice API'et.
  * 
- * Följer modell-attribut schemat som är presenterat på http://openaid.se/api/.
+ * Foljer modell-attribut schemat som ar presenterat pa http://openaid.se/api/.
  * 
  * @author ksango
  * 
@@ -44,7 +43,8 @@ public class OpenAidRequest implements Runnable {
 
 	public OpenAidRequest(PApplet parent) {
 		this.parent = parent;
-		parent.registerDispose(this);
+//		parent.registerDispose(this);
+		parent.registerMethod("dispose", this);
 		try {
 			callback = parent.getClass().getMethod("openaid",
 					new Class[] { String.class });
@@ -54,9 +54,9 @@ public class OpenAidRequest implements Runnable {
 	}
 
 	/**
-	 * Sätt den nuvarande modellen.
+	 * Satt den nuvarande modellen.
 	 * 
-	 * Följande modeller finns: contribution, country, sector, subsector,
+	 * Foljande modeller finns: contribution, country, sector, subsector,
 	 * delivery_channel, partner_organization, document
 	 * 
 	 * @param model
@@ -66,10 +66,10 @@ public class OpenAidRequest implements Runnable {
 	}
 
 	/**
-	 * Sätt ett attribut för en modell.</br></br>
+	 * Satt ett attribut for en modell.</br></br>
 	 * 
-	 * Följande attribut finns för respektive modell:</br>(attribut i fetstil
-	 * kan användas som begränsning i anrop)</br></br>
+	 * Foljande attribut finns for respektive modell:</br>(attribut i fetstil
+	 * kan anvandas som begransning i anrop)</br></br>
 	 * 
 	 * contribution: id, <b>year</b>, <b>title</b>, description,
 	 * <b>extending_agency, years, documents, outcome, outcome_total, name,
@@ -102,7 +102,7 @@ public class OpenAidRequest implements Runnable {
 	 * @param key
 	 *            attributets namn
 	 * @param value
-	 *            attributets värde
+	 *            attributets varde
 	 */
 	public void setAttribute(String key, String value) {
 		attributes.put(key, value);
@@ -118,7 +118,7 @@ public class OpenAidRequest implements Runnable {
 	}
 
 	public void dispose() {
-		stop();
+//		stop();
 		PApplet.println("Calling dispose.");
 	}
 
@@ -128,8 +128,6 @@ public class OpenAidRequest implements Runnable {
 		try {
 			json = doGet();
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -156,8 +154,7 @@ public class OpenAidRequest implements Runnable {
 		}
 	}
 
-	private String doGet() throws URISyntaxException, ClientProtocolException,
-			IOException {
+	private String doGet() throws URISyntaxException, IOException {
 		// Construct the GET
 		URIBuilder builder = new URIBuilder();
 		builder.setScheme("http").setHost(HOST).setPath(PATH + model);
@@ -174,10 +171,12 @@ public class OpenAidRequest implements Runnable {
 		HttpGet request = new HttpGet(uri);
 
 		// Construct the HttpClient that will send the GET request
-		HttpClient client = new DefaultHttpClient();
+//		HttpClient client = new DefaultHttpClient(); // This is now deprecated
+		HttpClient client = HttpClientBuilder.create().build();
+		
 		HttpResponse response = client.execute(request);
 
-		// Buffer för svaret
+		// Buffer for svaret
 		StringBuffer sb = new StringBuffer();
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response

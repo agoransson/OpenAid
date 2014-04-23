@@ -201,4 +201,40 @@ public class OpenAid {
 		request.setAttribute("year", Integer.toString(year));
 		request.execute();
 	}
+	
+	public void getContributionByCountryAndYear(int id, int year) {
+		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		// Fire
+		request.execute();
+	}
+	
+	public void getContributionByCountryAndYearAndSector(int id, int year, int sector) {
+		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		request.setAttribute("sector", Integer.toString(sector));
+		// Fire
+		request.execute();
+	}
+	
+	public void getContributionByCountryAndYearAndSectorAndSubsector(int id, int year, int sector, int subsector) {
+		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		request.setAttribute("sector", Integer.toString(sector));
+		request.setAttribute("subsector", Integer.toString(subsector));
+		// Fire
+		request.execute();
+	}
 }
