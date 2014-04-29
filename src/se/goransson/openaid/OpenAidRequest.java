@@ -42,11 +42,15 @@ public class OpenAidRequest implements Runnable {
 	private static HashMap<String, String> attributes = new HashMap<String, String>();
 
 	public OpenAidRequest(PApplet parent) {
+		this(parent, "openaid");
+	}
+
+	public OpenAidRequest(PApplet parent, String method) {
 		this.parent = parent;
 //		parent.registerDispose(this);
 		parent.registerMethod("dispose", this);
 		try {
-			callback = parent.getClass().getMethod("openaid",
+			callback = parent.getClass().getMethod(method,
 					new Class[] { String.class });
 		} catch (Exception e) {
 			e.printStackTrace();

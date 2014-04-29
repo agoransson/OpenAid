@@ -85,6 +85,14 @@ public class OpenAid {
 		// No parameters
 		request.execute();
 	}
+	
+	public void getAllCountries(String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("country");
+		// No parameters
+		request.execute();
+	}
 
 	/**
 	 * Hämta data om ett särskilt samarbetsland.
@@ -94,6 +102,15 @@ public class OpenAid {
 	 */
 	public void getCountryByName(String name) {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("country");
+		// Parameters
+		request.setAttribute("name", name);
+		request.execute();
+	}
+	
+	public void getCountryByName(String name, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("country");
 		// Parameters
@@ -115,6 +132,15 @@ public class OpenAid {
 		request.setAttribute("id", Integer.toString(id));
 		request.execute();
 	}
+	
+	public void getCountryById(int id, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("country");
+		// Parameters
+		request.setAttribute("id", Integer.toString(id));
+		request.execute();
+	}
 
 	/**
 	 * Hämta data om en enskild insats eller del av insats
@@ -124,6 +150,15 @@ public class OpenAid {
 	 */
 	public void getContributionById(int id) {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("id", Integer.toString(id));
+		request.execute();
+	}
+	
+	public void getContributionById(int id, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("contribution");
 		// Parameters
@@ -145,12 +180,29 @@ public class OpenAid {
 		request.setAttribute("year", Integer.toString(year));
 		request.execute();
 	}
+	
+	public void getTotalContributionsByYear(int year, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("country");
+		// Parameters
+		request.setAttribute("year", Integer.toString(year));
+		request.execute();
+	}
 
 	/**
 	 * Lista alla sektorer
 	 */
 	public void getAllSectors() {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("sector");
+		// No parameters
+		request.execute();
+	}
+	
+	public void getAllSectors(String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("sector");
 		// No parameters
@@ -171,6 +223,15 @@ public class OpenAid {
 		request.setAttribute("id", Integer.toString(id));
 		request.execute();
 	}
+	
+	public void getSubsectorById(int id, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("subsector");
+		// Parameters
+		request.setAttribute("id", Integer.toString(id));
+		request.execute();
+	}
 
 	/**
 	 * 
@@ -184,9 +245,26 @@ public class OpenAid {
 		request.setAttribute("id", Integer.toString(id));
 		request.execute();
 	}
+	
+	public void getDeliveryChannelById(int id, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("delivery_channel");
+		// Parameters
+		request.setAttribute("id", Integer.toString(id));
+		request.execute();
+	}
 
 	public void getOfficialDac() {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("official_dac");
+		// No parameters
+		request.execute();
+	}
+	
+	public void getOfficialDac(String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("official_dac");
 		// No parameters
@@ -202,8 +280,28 @@ public class OpenAid {
 		request.execute();
 	}
 	
+	public void getOfficialDacByYear(int year, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("official_dac");
+		// Parameters
+		request.setAttribute("year", Integer.toString(year));
+		request.execute();
+	}
+	
 	public void getContributionByCountryAndYear(int id, int year) {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		// Fire
+		request.execute();
+	}
+	
+	public void getContributionByCountryAndYear(int id, int year, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("contribution");
 		// Parameters
@@ -225,8 +323,33 @@ public class OpenAid {
 		request.execute();
 	}
 	
+	public void getContributionByCountryAndYearAndSector(int id, int year, int sector, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		request.setAttribute("sector", Integer.toString(sector));
+		// Fire
+		request.execute();
+	}
+	
 	public void getContributionByCountryAndYearAndSectorAndSubsector(int id, int year, int sector, int subsector) {
 		OpenAidRequest request = new OpenAidRequest(myParent);
+		// Path
+		request.setModel("contribution");
+		// Parameters
+		request.setAttribute("country", Integer.toString(id));
+		request.setAttribute("year", Integer.toString(year));
+		request.setAttribute("sector", Integer.toString(sector));
+		request.setAttribute("subsector", Integer.toString(subsector));
+		// Fire
+		request.execute();
+	}
+	
+	public void getContributionByCountryAndYearAndSectorAndSubsector(int id, int year, int sector, int subsector, String callback) {
+		OpenAidRequest request = new OpenAidRequest(myParent, callback);
 		// Path
 		request.setModel("contribution");
 		// Parameters
